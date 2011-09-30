@@ -1,0 +1,75 @@
+<!doctype html>
+	<html>
+		<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<title id='title'>HTML Page setup Tutorial</title>
+			<!-- ** CSS ** -->
+			<!-- base library -->
+			<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+
+			<!-- overrides to base library -->
+
+			<!-- ** Javascript ** -->
+			<!-- ExtJS library: base/adapter -->
+			<script type="text/javascript" src="js/libs/ext-base.js"></script>
+			<!-- ExtJS library: all widgets -->
+			<script type="text/javascript" src="js/libs/ext-all-debug.js"></script>
+			<!-- overrides to library -->
+
+			<!-- extensions -->
+
+			<!-- page specific -->
+		</head>
+		<body>
+			<div id ="my-banner-slideshow" class="banner-slideshow">
+							<div class="bd">
+								<ul>
+									<li><img src="assets/img/banner-slide1.jpg" width="545" height="250" alt="Title of banner 1" class="background-image" />
+										<div class="bd">
+											<div class="content">
+												<h2>Header 1</h2>
+												<p>Lorem ipsum dolor sit amet, spongia! Una non dum veniens Theophilum palatium Tharsiam vis lacrimis ceram mandavit lugentem ubi confudit huc ripae simul in.</p>
+												<p><a class="moreLink" href="#">Find out more here</a></p>
+											</div>
+										</div>
+									</li>
+									<li><img src="assets/img/sp_AJ03305_902x300.jpg" width="545" height="250" alt="Title of banner 2" class="background-image" />
+										<div class="bd">
+											<div class="content">
+												<h2>Header 2</h2>
+												<p>Lorem ipsum dolor sit amet, spongia! Una non dum veniens Theophilum palatium Tharsiam vis lacrimis ceram mandavit lugentem ubi confudit huc ripae simul in.</p>
+												<p><a class="moreLink" href="#">Find out more here</a></p>
+											</div>
+										</div>
+									</li>
+									<li><img src="assets/img/banner-slide3.jpg" width="545" height="250" alt="Title of banner 3" class="background-image" />
+										<div class="bd">
+											<div class="content">
+												<h2>Header 3</h2>
+												<p>Lorem ipsum dolor sit amet, spongia! Una non dum veniens Theophilum palatium Tharsiam vis lacrimis ceram mandavit lugentem ubi confudit huc ripae simul in.</p>
+												<p><a class="moreLink" href="#">Find out more here</a></p>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="thumbs">
+								<ul>
+									<li><img src="assets/img/banner-thumb1.jpg" width="40" height="22" alt="Banner 1 thumb" /></li>
+									<li><img src="assets/img/banner-thumb2.jpg" width="40" height="22" alt="Banner 2 thumb" /></li>
+									<li><img src="assets/img/banner-thumb3.jpg" width="40" height="22" alt="Banner 3 thumb" /></li>
+								</ul>
+							</div>
+						</div>
+			<script type="text/javascript" src="BannerSlideshow/BannerSlideshow.js"></script>
+			<script type="text/javascript">
+				// Path to the blank image should point to a valid location on your server
+				Ext.BLANK_IMAGE_URL = 'images/default/s.gif';
+				Ext.onReady(function() {
+					var box = new CISCO.ux.BannerSlideshow({
+						applyTo: 'my-banner-slideshow'
+					});
+				}); //end onReady
+			</script>
+		</body>
+	</html>

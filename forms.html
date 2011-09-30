@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title id='title'>HTML Page setup Tutorial</title>
+		<!-- ** CSS ** -->
+		<!-- base library -->
+		<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+		<!-- overrides to base library -->
+		<!-- ** Javascript ** -->
+		<!-- ExtJS library: base/adapter -->
+		<script type="text/javascript" src="js/libs/ext-base.js"></script>
+		<!-- ExtJS library: all widgets -->
+		<script type="text/javascript" src="js/libs/ext-all-debug.js"></script>
+		<!-- overrides to library -->
+		<!-- extensions -->
+		<!-- page specific -->
+		<style type="text/css">
+			label {
+				float: left;
+				clear: left;
+				width: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="form-container">
+			<form id="engagement_form" name="engagement_form" action="/pcgi-bin/cec/formmail/formmail.pl" method="post">
+				
+				<h2 class="blue">Requester Details</h2>
+				<p>
+					<label for="Name">Requester name</label>
+					<input type="text" id="Name" name="Name" />
+				</p>
+				<p>
+					<label for="Email">Requester email</label>
+					<input type="text" id="Email" name="Email" value=""/>
+				</p>
+				<p>
+					<label for="PhoneNumber">Requester Phone Number</label>
+					<input type="text" id="PhoneNumber" name="PhoneNumber" />
+				</p>
+				<p>
+					<label for="Organization">Organization</label>
+					<input type="text" id="Organization" name="Organization" />
+				</p>
+				
+					<h2 class="blue">Request Details</h2>
+					<p><label for="OwnerName">Business Owner Name: (if different from requester)</label>
+										<input type="text" id="OwnerName" name="OwnerName" /></p>
+					<p><label for="OwnerUsername">Business Owner Email</label>
+										<input type="text" id="OwnerUsername" name="OwnerUsername" /></p>
+					<p><label for="ProgramName">Program Name (e.g. Partner Enablement)*</label>
+										<input type="text" id="ProgramName" name="ProgramName" /></p>
+					<p><label for="Theater">Theater</label>
+										<select id="Theater" name="Theater">
+											<option value="Americas">Americas</option>
+											<option value="Asia Pac">Asia Pac</option>
+											<option value="EMEA">EMEA</option>
+										</select></p>
+					<p><label for="RequestTitle">Request Title</label>
+										<input type="text" id="RequestTitle" name="RequestTitle" /></p>
+					<p><label for="Scope">Scope of Engagement</label>
+										<select id="Scope" name="Scope">
+											<option value="Reporting and Automation">Reporting and Automation</option>
+											<option value="Web and Collaboration">Web and Collaboration</option>
+											<option value="Creative Media">Creative Media</option>
+											<option value="Other">Other</option>
+										</select><div class="x-clear"></div></p>
+				</form>
+		</div>
+		<script type="text/javascript">
+			// Path to the blank image should point to a valid location on your server
+			Ext.BLANK_IMAGE_URL = 'images/default/s.gif';
+			Ext.onReady(function() {
+				Ext.QuickTips.init();
+				var myForm = new Ext.form.BasicForm('engagement_form', {
+					url : 'http://127.0.0.1:8020/ExtJs/forms.html',
+					method : 'GET',
+					standardSubmit : true
+				});
+				var comboDefaults = {
+					xtype : 'combo',
+					editable : false,
+					forceSelection : true,
+					triggerAction : 'all',
+					emptyText : 'Please choose...'
+				};
+				var fieldDefaults = {
+					anchor : '40%',
+					emptyText : 'Fill in please...',
+					autoEl : {
+						tag : 'div'
+					}
+				};
+				/*add here subsequent form items*/
+				var formItems = [{
+					xtype : 'textfield',
+					applyTo : 'Name',
+					allowBlank : false,
+					section : 0
+				}, {
+					xtype : 'textfield',
+					applyTo : 'Email',
+					allowBlank : false,
+					section : 0
+				}, {
+					xtype : 'textfield',
+					applyTo : 'PhoneNumber',
+					section : 0
+				}, {
+					xtype : 'textfield',
+					applyTo : 'Organization',
+					section : 0
+				}, Ext.applyIf({
+					transform : 'Theater',
+					section : 0
+				}, comboDefaults), Ext.applyIf({
+					transform : 'Scope',
+					section : 0
+				}, comboDefaults)];
+				/*Add form items to a BasicForm object to cover form logic*/
+				for(var i = 0, len = formItems.length; i < len; i++) {
+					/*Apply field defaults*/
+					formItems[i] = Ext.applyIf(formItems[i], fieldDefaults);
+					/*Store info about the section the element was in*/
+					formItems[i] = Ext.ComponentMgr.create(formItems[i]);
+					/*Then add form items to my form*/
+					myForm.add(formItems[i]);
+				}
+			});
+			//end onReady
+		</script>
+	</body>
+</html>

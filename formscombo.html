@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title id='title'>HTML Page setup Tutorial</title>
+		<!-- ** CSS ** -->
+		<!-- base library -->
+		<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+		<!-- overrides to base library -->
+		<!-- ** Javascript ** -->
+		<!-- ExtJS library: base/adapter -->
+		<script type="text/javascript" src="js/libs/ext-base.js"></script>
+		<!-- ExtJS library: all widgets -->
+		<script type="text/javascript" src="js/libs/ext-all-debug.js"></script>
+		<!-- overrides to library -->
+		<!-- extensions -->
+		<!-- page specific -->
+	</head>
+	<body>
+		<div id="form-container">
+			<form name="engagement_form" action="/pcgi-bin/cec/formmail/formmail.pl" method="post">
+				<h2 class="blue">Requester Details</h2>
+				<label for="Name">Requester name:</label>
+				<input type="text" id="Name" name="Name" value="Tomasz Kruczek"/>
+				<label for="Email">Requester email:</label>
+				<input type="text" id="Email" name="Email" value="tkruczek@cisco.com"/>
+				<label for="PhoneNumber">Requester Phone Number:</label>
+				<input type="text" id="PhoneNumber" name="PhoneNumber" />
+				<label for="Organization">Organization:</label>
+				<input type="text" id="Organization" name="Organization" />
+				<h2 class="blue">Request Details:</h2>
+				<label for="OwnerName">Business Owner Name: (if different from requester)</label>
+				<input type="text" id="OwnerName" name="OwnerName" />
+				<label for="OwnerUsername">Business Owner Email:</label>
+				<input type="text" id="OwnerUsername" name="OwnerUsername" />
+				<label for="ProgramName">Program Name (e.g. Partner Enablement)*:</label>
+				<input type="text" id="ProgramName" name="ProgramName" />
+				<label for="Theater">Theater:</label>
+				<select id="Theater" name="Theater">
+					<option value="Americas">Americas</option>
+					<option value="Asia Pac">Asia Pac</option>
+					<option value="EMEA">EMEA</option>
+				</select>
+				<label for="RequestTitle">Request Title:</label>
+				<input type="text" id="RequestTitle" name="RequestTitle" />
+				<label for="Scope">Scope of Engagement:</label>
+				<select id="Scope" name="Scope">
+					<option value="Reporting and Automation">Reporting and Automation</option>
+					<option value="Web and Collaboration">Web and Collaboration</option>
+					<option value="Creative Media">Creative Media</option>
+					<option value="Other">Other</option>
+				</select>
+			</form>
+		</div>
+		<script type="text/javascript">
+			// Path to the blank image should point to a valid location on your server
+			Ext.BLANK_IMAGE_URL = 'images/default/s.gif';
+			Ext.onReady(function() {
+				/*Default config options for combo boxes*/
+				var comboDefaults = {
+					xtype : 'combo',
+					mode : 'local',
+					displayField : 'name',
+					valueField : 'name',
+					editable : false,
+					forceSelection : true,
+					triggerAction : 'all',
+					emptyText : 'Please choose...'
+				};
+				/*Create Theatres combo*/
+				var theatres = [['Americas'], ['Asiapac'], ['Europe']];
+				var theatresStore = new Ext.data.SimpleStore({
+					fields : ['name'],
+					data : theatres
+				});
+				var theatresCombo = {
+					fieldLabel : 'Theater',
+					store : theatresStore,
+				};
+				/*Apply default config options to theatresCombo*/
+				theatresCombo = Ext.applyIf(theatresCombo, comboDefaults);
+
+				/*Create Scope combo*/
+				var scope = [['Reporting and automation'], ['Web and collaboration'], ['Creative Media'], ['Other']];
+				var scopeStore = new Ext.data.SimpleStore({
+					fields : ['name'],
+					data : theatres
+				});
+				var scopeCombo = {
+					fieldLabel : 'Scope of Engagement',
+					store : scopeStore
+				};
+				/*Apply defaults to scope combo*/
+				scopeCombo = Ext.applyIf(scopeCombo, comboDefaults);
+
+				var myform = new Ext.FormPanel({
+					title : 'My Form',
+					renderTo : 'form-container',
+					url : 'http://127.0.0.1:8020/ExtJs/forms.html',
+					method : 'GET',
+					standardSubmit : true,
+					defaults : {
+						align : 'top'
+					},
+					items : [{
+						xtype : 'textfield',
+						fieldLabel : 'Requester Name',
+						name : 'title'
+					}, theatresCombo, scopeCombo],
+					buttons : [{
+						text : 'Search',
+						handler : function() {
+							this.ownerCt.ownerCt.getForm().submit();
+						}
+					}],
+					listeners : {
+						beforeaction : function(form, action) { debugger;
+							console.log(form);
+							console.log(action);
+							return false;
+						}
+					}
+				});
+			});
+			//end onReady
+		</script>
+	</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title id='title'>HTML Page setup Tutorial</title>
+		<!-- ** CSS ** -->
+		<!-- base library -->
+		<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+		<!-- overrides to base library -->
+		<!-- ** Javascript ** -->
+		<!-- ExtJS library: base/adapter -->
+		<script type="text/javascript" src="js/libs/ext-base.js"></script>
+		<!-- ExtJS library: all widgets -->
+		<script type="text/javascript" src="js/libs/ext-all-debug.js"></script>
+		<!-- overrides to library -->
+		<!-- extensions -->
+		<!-- page specific -->
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<form action="#">
+			<input type="text" name="name" id="name" />
+		</form>
+		
+		
+		<script type="text/javascript">
+			// Path to the blank image should point to a valid location on your server
+			Ext.BLANK_IMAGE_URL = 'images/default/s.gif';
+			Ext.onReady(function() {
+				var colorsStore = new Ext.data.SimpleStore({
+					fields: ['name'],
+					data: [['Blue'], ['Orange'], ['Red']]
+				});
+				var obj = {
+					name: 'Tomasz',
+					email: 'tkruczek@cisco.com',
+					getName: function() {
+						return this.name;
+					}
+				};
+				
+				var combo = new Ext.form.ComboBox({
+					store: colorsStore,
+					displayField: 'name',
+					valueField: 'name',
+					mode: 'local',
+					forceSelection: true,
+					editable: true,
+					typeAhead: true,
+					triggerAction: 'all',
+					id: 'colors-combo',
+					applyTo: 'name',
+					emptyText: 'pleaseSelect...'
+				});
+				var panel = new Ext.FormPanel({
+					title: 'combo'
+				});
+				panel.add(combo);
+				panel.render(Ext.getBody());
+				var comboCmp = Ext.ComponentMgr.get('colors-combo');
+				comboCmp.on('select', function(combo, record, index) {
+					Ext.getBody().createChild({
+						tag: 'p',
+						html: combo.getValue()
+					});
+				});
+				Ext.getBody().createChild({
+					tag: 'pre',
+					html: Ext.util.JSON.encode(obj)
+				});
+				Ext.getBody().createChild({
+					tag : 'pre',
+					html: JSON.stringify(obj, function(key, value) {
+						console.log('Key: %s , value: %s', key, value );
+						return value;
+					}, ' ')
+				});
+				
+			});
+			//end onReady
+		</script>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title id='title'>HTML Page setup Tutorial</title>
+		<!-- ** CSS ** -->
+		<!-- base library -->
+		<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+
+		<!-- overrides to base library -->
+
+		<!-- ** Javascript ** -->
+		<!-- ExtJS library: base/adapter -->
+		<script type="text/javascript" src="js/libs/ext-base.js"></script>
+		<!-- ExtJS library: all widgets -->
+		<script type="text/javascript" src="js/libs/ext-all-debug.js"></script>
+		<!-- overrides to library -->
+
+		<!-- extensions -->
+
+		<!-- page specific -->
+		<script type="text/javascript"  src="TwitterPipe.js"></script>
+	</head>
+	<body>
+		<div id="twitter-feed">
+		</div>
+		<script type="text/javascript">
+			// Path to the blank image should point to a valid location on your server
+			Ext.BLANK_IMAGE_URL = 'images/default/s.gif';
+			/**
+			 * Runs a test
+			 * @author Tomasz Kruczek tkruczek@cisco.com
+			 * @param {String} text Put text value
+			 * @return {Object} Returns the test value
+			 */
+			function test(text) {
+				return new Object();
+			}
+			Ext.onReady( function() {
+				CISCO.ux.TwitterPipe
+				var pipe = new CISCO.ux.TwitterPipe({
+        id : 'pipe', 
+        title : '<img border="0" style="vertical-align:-1px;" alt="" src="/cec/common/i/icon_twitter.gif" /> Neil\'s Tweets\'', 
+        tbar : [
+          '->', 
+          '<a class="autoIconOFFSITE" href="http:\/\/twitter.com\/#!\/OlympicBard">View all\<\/a>', 
+          '-', 
+          '<a class="autoIconOFFSITE" href="http:\/\/twitter.com\/#!\/OlympicBard">Follow me\<\/a>'
+        ], 
+        bodyStyle : "padding: 10px", 
+        pipeId : '4b47fa9b97fdf8844b588623a3064cb5', 
+        renderTo : 'twitter-feed', 
+        limit : 5, 
+      });
+			}); //end onReady
+		</script>
+	</body>
+</html>

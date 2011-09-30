@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title id='title'>HTML Page setup Tutorial</title>
+		<!-- ** CSS ** -->
+		<!-- base library -->
+		<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+		<!-- overrides to base library -->
+		<!-- ** Javascript ** -->
+		<!-- ExtJS library: base/adapter -->
+		<script type="text/javascript" src="js/libs/ext-base.js"></script>
+		<!-- ExtJS library: all widgets -->
+		<script type="text/javascript" src="js/libs/ext-all-debug.js"></script>
+		<!-- overrides to library -->
+		<!-- extensions -->
+		<!-- page specific -->
+	</head>
+	<body>
+		<div id="main"></div>
+		<script type="text/javascript">
+			// Path to the blank image should point to a valid location on your server
+			Ext.BLANK_IMAGE_URL = 'images/default/s.gif';
+			Ext.onReady(function() {
+				function navHandler(button, event, dir, idPrev, idNext) {
+					//locate index of the active item
+					var layoutMgr = button.ownerCt.ownerCt.getLayout();
+					var container = button.ownerCt.ownerCt;
+					var activeIndex = container.items.indexOf(layoutMgr.activeItem);
+					var newIndex = (activeIndex + dir).constrain(0, container.items.getCount());
+					//activate new item
+					layoutMgr.setActiveItem(newIndex);
+					//set state of the buttons
+					console.log(Ext.getCmp(idNext));
+					Ext.getCmp(idPrev).setDisabled(newIndex <= 0);
+					Ext.getCmp(idNext).setDisabled(newIndex >= container.items.getCount()-1);
+				};
+				var view = new Ext.Viewport({
+					layout: 'anchor',
+					items: [{
+						xtype: 'panel',
+						title: 'A wizard using card layout',
+						layout: 'card',
+						activeItem: 0,
+						anchor: '50% 50%',
+						items: [{
+							xtype: 'panel',
+							title: 'step1',
+							html: 'some instructions for step 1'
+						}, {
+							xtype: 'panel',
+							title: 'step2',
+							html: 'some instructions for step 2'
+						}],
+						bbar: [
+						{
+							xtype: 'tbfill'
+						}, {
+							xtype: 'button',
+							id: 'btn-prev',
+							text: 'Previous',
+							disabled: true,
+							handler: navHandler.createDelegate(this, [-1,'btn-prev', 'btn-next'], true)
+						}, {
+							xtype: 'button',
+							id: 'btn-next',
+							text: 'Next',
+							handler: navHandler.createDelegate(this, [1,'btn-prev', 'btn-next'], true)
+						}]
+					}]
+				});				
+			});
+			//end onReady
+		</script>
+	</body>
+</html>

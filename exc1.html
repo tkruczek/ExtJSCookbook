@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title id='title'>HTML Page setup Tutorial</title>
+		<!-- ** CSS ** -->
+		<!-- base library -->
+		<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+		<!-- overrides to base library -->
+		<!-- ** Javascript ** -->
+		<!-- ExtJS library: base/adapter -->
+		<script type="text/javascript" src="js/libs/ext-base.js"></script>
+		<!-- ExtJS library: all widgets -->
+		<script type="text/javascript" src="js/libs/ext-all-debug.js"></script>
+		<!-- overrides to library -->
+		<!-- extensions -->
+		<!-- page specific -->
+	</head>
+	<body>
+		<div id="main"></div>
+		<script type="text/javascript">
+			// Path to the blank image should point to a valid location on your server
+			Ext.BLANK_IMAGE_URL = 'images/default/s.gif';
+			Ext.onReady(function() {
+				var treeLoader = new Ext.tree.TreeLoader({
+					dataUrl: 'http://127.0.0.1:8020/ExtJs/mailboxContent.txt',
+					preloadChildren: true
+				});
+				var root = new Ext.tree.TreeNode({
+					text: 'Mail box',
+					loader: treeLoader
+				});
+				var items = [{
+					xtype: 'treepanel',
+					title: 'Mail',
+					root: root,
+					loader: treeLoader
+				}, {
+					xtype: 'panel',
+					title: 'Calendar',
+					items: [{
+						xtype: 'datepicker'
+					}]
+				}, {
+					xtype: 'form',
+					title: 'View',
+					items: [
+						{
+							xtype: 'radiogroup',
+							fieldLabel: 'Current View',
+							columns: 1,
+							name: 'View',
+							items: [
+								{fieldLabel: 'Address Cards', name: 'View'},
+								{fieldLabel: 'Phone List', name: 'View'},
+								{fieldLabel: 'Category', name: 'View'},
+								{fieldLabel: 'By Locations', name: 'View'}
+							]
+						}
+					]
+				}];
+				var viewport = new Ext.Viewport({
+					layout: 'column',
+					items: [{
+						title: 'panel 1',
+						columnWidth: 0.33,
+						layout: 'accordion',
+						items: items,
+						height: 300			
+					}, {
+						title: 'panel 2',
+						columnWidth: 0.33
+					}, {
+						title: 'panel 3',
+						columnWidth: 0.34
+					}
+					]
+				});
+				
+			});
+			//end onReady
+		</script>
+	</body>
+</html>
